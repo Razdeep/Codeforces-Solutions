@@ -1,10 +1,11 @@
 // https://codeforces.com/problemset/problem/26/A
-// NOT SOLVED
 #include <bits/stdc++.h>
 using namespace std;
 typedef long long ll;
 int isPrime(int n)
 {
+    if (n == 1)
+        return false;
     for (int i = 2; i * i <= n; i++)
     {
         if (n % i == 0)
@@ -14,7 +15,6 @@ int isPrime(int n)
 }
 int isAlmostPrime(int n)
 {
-    int copy=n;
     int count = 0;
 
     for (int i = 2; i <= n; i++)
@@ -24,15 +24,16 @@ int isAlmostPrime(int n)
             count++;
         }
     }
-    if (count >= 2)
+    if (count == 2)
     {
-        cout<<"DEBUG "<<copy<<" is an almost prime"<<endl;
         return true;
     }
     return false;
 }
-void solve(int n)
+int main()
 {
+    int n;
+    cin >> n;
     int count = 0;
     for (int i = 1; i <= n; i++)
     {
@@ -40,11 +41,5 @@ void solve(int n)
             count++;
     }
     cout << count << endl;
-}
-int main()
-{
-    int n;
-    cin >> n;
-    solve(n);
     return 0;
 }

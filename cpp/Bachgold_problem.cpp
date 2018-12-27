@@ -11,24 +11,23 @@ using namespace std;
 typedef long long ll;
 int main()
 {
+    cin.sync_with_stdio(false);
+    cin.tie(0);
     int n;
     cin>>n;
-    int count=0;
     vector<int> result;
     while(n>0)
     {
         if(n==3)
         {
             result.push_back(3);
-            count++;
             break;
         }
         result.push_back(2);
-        count++;
         n-=2;
     }
-    cout<<count<<endl;
-    for(int i=0;i<count;i++)
+    cout<<result.size()<<endl;
+    for(int i=0;i<result.size();i++)
     {
         cout<<result[i]<<" ";
     }
