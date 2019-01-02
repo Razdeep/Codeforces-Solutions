@@ -31,7 +31,7 @@ int main()
                 if (a + b == this_hint)
                     break;
                 else if (a + b > this_hint)
-                    b += (this_hint - b - a);
+                    b -= (a + b - this_hint);
                 else
                     a += (this_hint - b - a);
             }
