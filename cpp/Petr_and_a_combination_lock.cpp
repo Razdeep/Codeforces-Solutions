@@ -1,6 +1,7 @@
 // https://codeforces.com/contest/1097/problem/B
 
 // NOT SURE ABOUT THE SOLUTION BUT STILL GOT ACCEPTED
+// THEN IT GOT HACKED AND THEN I DEFENDED
 
 #include <bits/stdc++.h>
 #define all(v) v.begin(), v.end()
@@ -15,19 +16,20 @@ int isUnlockable(int n, vector<int> instructions)
     int max_instruction = *max_element(all(instructions));
     if (sum - max_instruction == max_instruction)
         return true;
+
     for (int i = 0; i < 32768; i++)
     {
-        int aero = 0;
+        int sum = 0;
         int binary = i;
         for (int j = 0; j < instructions.size(); j++)
         {
             if (binary % 2 == 0)
-                aero += instructions[j];
+                sum += instructions[j];
             else
-                aero -= instructions[j];
+                sum -= instructions[j];
             binary /= 2;
         }
-        if (aero == 0)
+        if (sum % 360 == 0)
             return true;
     }
     return false;
