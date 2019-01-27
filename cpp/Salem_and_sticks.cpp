@@ -1,12 +1,25 @@
 // https://codeforces.com/contest/1105/problem/A
-// NOT JUDGED
-// HAVE TO SUBMIT TOMORROW
 
 #include <bits/stdc++.h>
 #define all(v) v.begin(), v.end()
 using namespace std;
 typedef long long ll;
-
+ll calculateCost(std::vector<ll> &stick_vector, ll try_stick)
+{
+    ll cost = 0;
+    for (auto this_stick : stick_vector)
+    {
+        if (this_stick < try_stick - 1)
+        {
+            cost += abs(this_stick - (try_stick - 1));
+        }
+        else if (this_stick > try_stick + 1)
+        {
+            cost += abs(this_stick - (try_stick + 1));
+        }
+    }
+    return cost;
+}
 int main()
 {
     ios::sync_with_stdio(false);
@@ -16,19 +29,16 @@ int main()
     vector<ll> stick_vector(number_of_sticks, 0);
     for (ll i = 0; i < number_of_sticks; i++)
         cin >> stick_vector[i];
-    ll average_stick_length = std::accumulate(all(stick_vector), 0) / number_of_sticks;
-    ll cost = 0;
-    for (ll i = 0; i < number_of_sticks; i++)
+    ll cost = INT_MAX, perfect_stick = -1;
+    for (ll try_stick = 1; try_stick <= 100; try_stick++)
     {
-        if (stick_vector[i] < average_stick_length - 1)
+        ll this_cost = calculateCost(stick_vector, try_stick);
+        if (this_cost < cost)
         {
-            cost += abs(stick_vector[i] - (average_stick_length - 1));
-        }
-        else if (stick_vector[i] > average_stick_length + 1)
-        {
-            cost += abs(stick_vector[i] - (average_stick_length + 1));
+            cost = this_cost;
+            perfect_stick = try_stick;
         }
     }
-    cout << average_stick_length << " " << cost << endl;
+    cout << perfect_stick << " " << cost << endl;
     return 0;
 }
