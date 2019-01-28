@@ -1,34 +1,87 @@
 // https://codeforces.com/contest/1102/problem/B
 // NOT SOLVED
+/**
+ * Explanation:
+ * We are given a list of bricks. Inorder to colour them uniquely and efficiently,
+ * we must consider sorting the list by value, as bricks having same values must
+ * have different colours.
+ * Once, the bricks are coloured, we must check if the there exist any brick
+ * which has same value and same colour. If exist then solution is simply NO.
+ * On the contrary, if the solution exist have to rearrange the brick_list as
+ * the original one. After arranging, we must display all the colour by increasing
+ * the value by 1, because we need colours ranging from 1 to number of colours.
+*/
 #include <bits/stdc++.h>
 #define all(v) v.begin(), v.end()
 using namespace std;
 typedef long long ll;
+struct Brick
+{
+    int position;
+    int value;
+    int colour;
+};
+bool byValue(const Brick &first, const Brick &second)
+{
+    return first.value < second.value;
+}
+bool byPosition(const Brick &first, const Brick &second)
+{
+    return first.position < second.position;
+}
+/**
+ * Checks whether such configuration of bricks is possible or not
+ * @param Vector of bricks
+ * @return Returns true
+ */
+bool validityCheck(std::vector<Brick> &brick_list)
+{
+    std::vector<Brick> filter_vector;
+    for (auto brick : brick_list)
+    {
+        if (brick.colour == 0)
+            filter_vector.push_back(brick);
+    }
+    for (int i = 0; i + 1 < filter_vector.size(); i++)
+    {
+        if (filter_vector[i].value == filter_vector[i + 1].value)
+        {
+            return false;
+        }
+    }
+    return true;
+}
 int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(0);
-    ll n, k;
-    cin >> n >> k;
-    vector<int> arr(n + 1, 0);
-    vector<int> number_count(n + 1, 0);
-    int this_colour;
-    for (ll i = 1; i <= n; i++)
+    int no_of_bricks, no_of_colours;
+    cin >> no_of_bricks >> no_of_colours;
+    std::vector<Brick> brick_list(no_of_bricks);
+    for (int i = 0; i < no_of_bricks; i++)
     {
-        cin >> this_colour;
-        arr[i] = ++number_count[this_colour];
+        cin >> brick_list[i].value;
+        brick_list[i].position = i;
     }
-    ll used_colours = *max_element(all(arr));
-    if (used_colours > k)
-        cout << "NO" << endl;
-    else
+    std::sort(all(brick_list), byValue);
+
+    for (int i = 0, this_colour = 0; i < no_of_bricks;
+         i++, this_colour = (this_colour + 1) % no_of_colours)
+    // Colours would be assigned from 0 to (no_of_colours - 1)
+    {
+        brick_list[i].colour = this_colour;
+    }
+    if (validityCheck(brick_list))
     {
         cout << "YES" << endl;
-        for (int i = 1; i <= n; i++)
+        std::sort(all(brick_list), byPosition);
+        for (int i = 0; i < no_of_bricks; i++)
         {
-            cout << arr[i] << " ";
+            cout << brick_list[i].colour + 1 << " ";
         }
         cout << endl;
     }
+    else
+        cout << "NO" << endl;
     return 0;
 }
