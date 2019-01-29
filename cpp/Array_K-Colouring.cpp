@@ -34,20 +34,22 @@ bool byPosition(const Brick &first, const Brick &second)
  * @param Vector of bricks
  * @return Returns true
  */
-bool validityCheck(std::vector<Brick> &brick_list)
+bool validityCheck(std::vector<Brick> &brick_list, int no_of_colours)
 {
     std::vector<Brick> filter_vector;
-    for (auto brick : brick_list)
+    for (int this_colour = 0; this_colour < no_of_colours; this_colour++)
     {
-        if (brick.colour == 0)
-            filter_vector.push_back(brick);
-    }
-    for (int i = 0; i + 1 < filter_vector.size(); i++)
-    {
-        if (filter_vector[i].value == filter_vector[i + 1].value)
+        filter_vector.clear();
+        for (auto brick : brick_list)
         {
-            return false;
+            if (brick.colour == this_colour)
+                filter_vector.push_back(brick);
         }
+        for (int i = 0; i + i < filter_vector.size(); i++)
+            if (filter_vector[i].value == filter_vector[i + 1].value)
+            {
+                return false;
+            }
     }
     return true;
 }
@@ -71,7 +73,7 @@ int main()
     {
         brick_list[i].colour = this_colour;
     }
-    if (validityCheck(brick_list))
+    if (validityCheck(brick_list, no_of_colours))
     {
         cout << "YES" << endl;
         std::sort(all(brick_list), byPosition);
