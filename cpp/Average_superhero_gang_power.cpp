@@ -31,32 +31,24 @@ int main()
     }
     else
     {
-        // std::sort(all(superhero_power));
-        // int count = 0;
-        // float total_power = 0;
-        // for (int i = no_of_superheros - 1; i >= no_of_operations / 2; i--)
-        // {
-        //     total_power += superhero_power[i];
-        //     count++;
-        // }
-        // int max_boost = std::min(no_of_operations / 2, max_operation_per_superhero * mydiv(no_of_operations, 2)); // NOT THIS
-        // total_power += max_boost;
-        // total_power /= count;
-        // cout << total_power << endl;
-
-        if (no_of_operations >= no_of_superheros)
+        std::sort(all(superhero_power));
+        if (no_of_operations > superhero_power.size() - 1)
         {
-            cout << superhero_power[superhero_power.size() - 1] + (no_of_operations - no_of_superheros + 1);
-            return 0;
+            
+            int max_boost = min((no_of_operations - ((int)superhero_power.size() - 1)), max_operation_per_superhero);
+            std::cout << superhero_power[superhero_power.size() - 1] + max_boost << std::endl;
         }
         else
         {
-            float total_power = 0;
-            for (int i = no_of_operations; i < no_of_superheros; i++)
+            // cout<<"debug";
+            int sum = 0, count = 0;
+            for (int i = no_of_operations; i < superhero_power.size(); i++)
             {
-                total_power += superhero_power[i];
+                sum += superhero_power[i];
+                count++;
             }
-            cout << total_power << endl;
+            float average_power = sum / count;
+            cout << average_power << endl;
         }
     }
     return 0;
