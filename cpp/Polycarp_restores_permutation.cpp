@@ -1,4 +1,11 @@
-// https://codeforces.com/contest/1141/problem/B
+// https://codeforces.com/contest/1141/problem/C
+/**
+ * Explanation:
+ * 
+ */
+// NOT SOLVED
+// GETTING TLE IN TEST 38
+
 #include <bits/stdc++.h>
 #define all(v) v.begin(), v.end()
 #define FORN(i, n) for (__typeof(n) i = 0; i < n; i++)
@@ -28,34 +35,37 @@ int main()
     _;
     ll n, i;
     cin >> n;
-    bool recorded = false;
-    int first_streak = 0;
-    ll max_streak = INT_MIN;
-    ll this_streak = 0;
-    ll resting;
-    FORN(i, n)
+    vi q(n - 1);
+    vi p(n);
+
+    FORN(i, n - 1)
     {
-        cin >> resting;
-        if (!recorded && resting == 0)
-        {
-            first_streak = this_streak;
-            this_streak = 0;
-            recorded = true;
-        }
-        if (resting == 0)
-        {
-            this_streak = 0;
-        }
-        else
-        {
-            this_streak++;
-        }
-        max_streak = (this_streak > max_streak ? this_streak : max_streak);
+        cin >> q[i];
     }
-    ll circular_streak = 0;
-    if (recorded)
-        circular_streak = first_streak + this_streak;
-    max_streak = (circular_streak > max_streak) ? circular_streak : max_streak;
-    cout << max_streak << endl;
+    bool done = false;
+    for (int trial = 1; trial <= n; trial++)
+    {
+        p[0] = trial;
+        for (int i = 1; i < n; i++)
+        {
+            p[i] = p[i - 1] + q[i - 1];
+        }
+        vi new_p(n);
+        std::copy(all(p), new_p.begin());
+        std::sort(all(new_p));
+        auto last_ptr = std::unique(all(new_p));
+        new_p.resize(std::distance(new_p.begin(), last_ptr));
+        if (std::accumulate(all(p), 0LL) == (n * (n + 1) / 2)
+            && p.size() == new_p.size()) 
+        {
+            FORN(i, n)
+            cout << p[i] << " ";
+            cout << endl;
+            done = true;
+            break;
+        }
+    }
+    if (!done)
+        cout << -1 << endl;
     return 0;
 }
