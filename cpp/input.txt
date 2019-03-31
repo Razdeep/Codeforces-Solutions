@@ -1,9 +1,2 @@
-8
-fced
-xyz
-r
-dabcef
-az
-aa
-bad
-babc
+4
+1000001 1000001 11 2
