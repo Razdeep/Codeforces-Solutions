@@ -1,6 +1,7 @@
 // https://codeforces.com/contest/1152/problem/B
 // NOT SOLVED
 #include <bits/stdc++.h>
+#define debug(x) cerr << "x-> " << x << endl
 #define all(v) v.begin(), v.end()
 using namespace std;
 typedef long long ll;
@@ -21,20 +22,15 @@ int main()
     int x;
     cin >> x;
     vector<int> answer;
-    int nob = no_of_bits(x);
-    for (int i = 0; i + 1 < nob; i++)
+    int max_bits = no_of_bits(x);
+    queue<int> myqueue;
+    myqueue.push(x);
+    while(!myqueue.empty())
     {
-        int prev_bit = (x >> i) & 1;
-        int next_bit = (x >> (i + 1)) & 1;
-        if (prev_bit != next_bit)
-            answer.push_back(i + 1);
-    }
-    cout << answer.size() << endl;
-    if (answer.size())
-    {
-        for (int i : answer)
-            cout << i << " ";
-        cout << endl;
+        int this_element = myqueue.front();
+        myqueue.pop();
+        myqueue.push(this_element + 1);
+        
     }
     return 0;
 }
