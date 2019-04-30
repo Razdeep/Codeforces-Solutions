@@ -20,14 +20,14 @@ int main()
         {
             char ch;
             cin >> ch;
-            arr[i][j] = (ch == '.' ? 1 : 0);
+            arr[i][j] = (ch == '.');
         }
     }
 
     bool success = true;
-    FORN(i, n - 1)
+    FORN(i, n - 2)
     {
-        FORN(j, n - 1)
+        FORN(j, n - 2)
         {
             if (arr[i][j + 1] && arr[i + 1][j] && arr[i + 1][j + 1] && arr[i + 1][j + 2] && arr[i + 2][j + 1])
             {
