@@ -1,5 +1,4 @@
 // https://codeforces.com/contest/1156/problem/C
-// NOT SOLVED
 #include <bits/stdc++.h>
 #define all(v) v.begin(), v.end()
 #define FORN(i, n) for (__typeof(i) i = 0; i < n; i++)
@@ -19,17 +18,20 @@ int main()
         cin >> arr[i];
     sort(all(arr));
     vector<int> paired(n, false);
-    for (int i = 0; i + 1 < n; i++)
+    int fast_ptr = 1, slow_ptr = 0;
+    while (fast_ptr < n && slow_ptr < n)
     {
-        for (int j = i + 1; j < n; j++)
+        while (paired[slow_ptr])
+            slow_ptr++;
+        if (slow_ptr >= fast_ptr)
+            fast_ptr = slow_ptr + 1;
+        if (arr[fast_ptr] - arr[slow_ptr] >= z)
         {
-            if (arr[j] - arr[i] >= z && !paired[j] && !paired[i])
-            {
-                paired[i] = paired[j] = true;
-                answer++;
-                i++;
-            }
+            paired[slow_ptr] = paired[fast_ptr] = true;
+            slow_ptr++;
+            answer++;
         }
+        fast_ptr++;
     }
     cout << answer << endl;
     return 0;
