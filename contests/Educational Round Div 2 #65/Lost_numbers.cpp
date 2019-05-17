@@ -29,6 +29,6 @@ int main()
     cin >> c;
     cout << "? 5 6" << endl;
     cin >> d;
-    cout << "| " << a / gcd(a, b) << " " << gcd(a, b) << " " << b / gcd(a, b) << " " << c / gcd(c, d) << " " << gcd(c, d) << " " << d / gcd(c, d) << endl;
+    cout << "! " << a / gcd(a, b) << " " << gcd(a, b) << " " << b / gcd(a, b) << " " << c / gcd(c, d) << " " << gcd(c, d) << " " << d / gcd(c, d) << endl;
     return 0;
 }
